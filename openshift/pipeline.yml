@@ -5,13 +5,13 @@ items:
     apiVersion: v1
     metadata:
       name: jenkins-edit
-      namespace: datacenter-a
+      namespace: fuse-migration-dev
     roleRef:
       name: edit
     subjects:
       - kind: ServiceAccount
         name: jenkins
-        namespace: ci
+        namespace: fuse-migration-build
   - kind: BuildConfig
     apiVersion: v1
     metadata:
@@ -19,8 +19,8 @@ items:
     spec:
       source:
         git:
-          uri: https://github.com/rh-ei-stp/fuse-client-app.git
-          ref: master
+          uri: https://github.com/davgordo/fuse-client-app.git
+          ref: arch
       strategy:
         jenkinsPipelineStrategy:
           jenkinsfilePath: Jenkinsfile

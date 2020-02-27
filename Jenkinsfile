@@ -3,7 +3,7 @@
 node('maven') {
 
     env.CI_PROJECT          = "fuse-migration-build"
-    env.DEV_PROJECT         = "fuse-migration-amq" // eventually change to "datacenter-a-dev"
+    env.DEV_PROJECT         = "fuse-migration-dev" // eventually change to "datacenter-a-dev"
     //env.TEST_PROJECT        = "datacenter-a-test"
     //env.PROD_PROJECT        = "datacenter-a"
     env.APP_NAME            = "fuse-client-app"
