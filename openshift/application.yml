@@ -48,15 +48,10 @@ objects:
               volumeMounts:
                 - name: application-config
                   mountPath: /deployments/config
-                - mountPath: /trust
-                  name: amq-client-truststore
           volumes:
             - name: application-config
               configMap:
                 name: fuse-client-app
-            - name: amq-client-truststore
-              secret:
-                secretName: amq-client-truststore
       triggers:
         - type: ImageChange
           imageChangeParams:
