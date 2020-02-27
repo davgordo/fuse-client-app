@@ -2,8 +2,8 @@
 
 node('maven') {
 
-    env.CI_PROJECT          = "ci"
-    env.DEV_PROJECT         = "datacenter-a" // eventually change to "datacenter-a-dev"
+    env.CI_PROJECT          = "fuse-migration-build"
+    env.DEV_PROJECT         = "fuse-migration-amq" // eventually change to "datacenter-a-dev"
     //env.TEST_PROJECT        = "datacenter-a-test"
     //env.PROD_PROJECT        = "datacenter-a"
     env.APP_NAME            = "fuse-client-app"
@@ -53,17 +53,14 @@ node('maven') {
 
     checkout scm
 
-    dir(APP_NAME) {
-
-        stage('Deploy to TEST') {
-            def oc = "oc --namespace=${TEST_PROJECT}"
-            sh "${oc} process -f openshift/application.yml -p APP_VERSION=${DEPLOYMENT_VERSION} | ${oc} apply -f -"
-            sh "${oc} tag ${DEV_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION} ${TEST_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION}"
-            sh "${oc} rollout latest dc/${APP_NAME}"
-            sh "${oc} rollout status dc/${APP_NAME} --watch"
-        }
-
+    stage('Deploy to TEST') {
+        def oc = "oc --namespace=${TEST_PROJECT}"
+        sh "${oc} process -f openshift/application.yml -p APP_VERSION=${DEPLOYMENT_VERSION} | ${oc} apply -f -"
+        sh "${oc} tag ${DEV_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION} ${TEST_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION}"
+        sh "${oc} rollout latest dc/${APP_NAME}"
+        sh "${oc} rollout status dc/${APP_NAME} --watch"
     }
+
 
 }
 
@@ -77,16 +74,12 @@ node('maven') {
 
     checkout scm
 
-    dir(APP_NAME) {
-
-        stage('Deploy to PROD') {
-            def oc = "oc --namespace=${PROD_PROJECT}"
-            sh "${oc} process -f openshift/application.yml -p APP_VERSION=${DEPLOYMENT_VERSION} | ${oc} apply -f -"
-            sh "${oc} tag ${TEST_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION} ${PROD_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION}"
-            sh "${oc} rollout latest dc/${APP_NAME}"
-            sh "${oc} rollout status dc/${APP_NAME} --watch"
-        }
-
+    stage('Deploy to PROD') {
+        def oc = "oc --namespace=${PROD_PROJECT}"
+        sh "${oc} process -f openshift/application.yml -p APP_VERSION=${DEPLOYMENT_VERSION} | ${oc} apply -f -"
+        sh "${oc} tag ${TEST_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION} ${PROD_PROJECT}/${APP_NAME}:${DEPLOYMENT_VERSION}"
+        sh "${oc} rollout latest dc/${APP_NAME}"
+        sh "${oc} rollout status dc/${APP_NAME} --watch"
     }
 
     milestone 5
