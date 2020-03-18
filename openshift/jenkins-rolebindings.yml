@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: List
+items:
+  - kind: RoleBinding
+    apiVersion: v1
+    metadata:
+      name: jenkins-edit
+      namespace: fuse-migration-build
+    roleRef:
+      name: edit
+    subjects:
+      - kind: ServiceAccount
+        name: jenkins
+        namespace: fuse-migration-build
+  - kind: RoleBinding
+    apiVersion: v1
+    metadata:
+      name: jenkins-edit
+      namespace: fuse-migration-dev
+    roleRef:
+      name: edit
+    subjects:
+      - kind: ServiceAccount
+        name: jenkins
+        namespace: fuse-migration-build
+  - kind: RoleBinding
+    apiVersion: v1
+    metadata:
+      name: jenkins-edit
+      namespace: fuse-migration-test
+    roleRef:
+      name: edit
+    subjects:
+      - kind: ServiceAccount
+        name: jenkins
+        namespace: fuse-migration-build
+  - kind: RoleBinding
+    apiVersion: v1
+    metadata:
+      name: jenkins-edit
+      namespace: fuse-migration-prod
+    roleRef:
+      name: edit
+    subjects:
+      - kind: ServiceAccount
+        name: jenkins
+        namespace: fuse-migration-build
