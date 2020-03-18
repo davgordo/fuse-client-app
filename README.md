@@ -65,12 +65,3 @@ Note: At this time the pipeline is assuming we are deploying the app to the `dat
 Start the pipeline build
 
 `oc start-build fuse-client-app-pipeline`
-
-## Integration Testing
-
-The example includes a [fabric8 arquillian](https://github.com/fabric8io/fabric8/tree/v2.2.170.redhat/components/fabric8-arquillian) OpenShift Integration Test. 
-Once the container image has been built and deployed in OpenShift, the integration test can be run with:
-
-`mvn test -Dtest=*KT`
-
-The test is disabled by default and has to be enabled using `-Dtest`. 
