@@ -8,8 +8,8 @@ items:
     spec:
       source:
         git:
-          uri: https://github.com/rh-ei-stp/fuse-client-app.git
-          ref: master
+          uri: https://github.com/davgordo/fuse-client-app.git
+          ref: per
       strategy:
         jenkinsPipelineStrategy:
           jenkinsfilePath: Jenkinsfile
