@@ -4,13 +4,13 @@ items:
   - kind: BuildConfig
     apiVersion: v1
     metadata:
-      name: fuse-client-app-pipeline
+      name: example-app-pipeline
     spec:
       source:
         git:
-          uri: https://github.com/davgordo/fuse-client-app.git
+          uri: https://github.com/davgordo/example-app.git
           ref: per
       strategy:
         jenkinsPipelineStrategy:
           jenkinsfilePath: Jenkinsfile
-        runPolicy: Parallel
+      runPolicy: Parallel

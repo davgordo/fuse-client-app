@@ -1,29 +1,29 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 labels:
-  template: fuse-client-app
+  template: example-app
 metadata:
   annotations:
     description: deployment for Fuse AMQP client app
-  name: fuse-client-app
+  name: example-app
 objects:
   - apiVersion: apps.openshift.io/v1
     kind: DeploymentConfig
     metadata:
       labels:
-        app: fuse-client-app
-      name: fuse-client-app
+        app: example-app
+      name: example-app
     spec:
       replicas: 1
       selector:
-        app: fuse-client-app
+        app: example-app
       template:
         metadata:
           labels:
-            app: fuse-client-app
+            app: example-app
         spec:
           containers:
-            - name: fuse-client-app
+            - name: example-app
               image: ' '
               ports:
                 - containerPort: 8778
@@ -51,16 +51,16 @@ objects:
           volumes:
             - name: application-config
               configMap:
-                name: fuse-client-app
+                name: example-app
       triggers:
         - type: ImageChange
           imageChangeParams:
             automatic: false
             containerNames:
-              - fuse-client-app
+              - example-app
             from:
               kind: ImageStreamTag
-              name: fuse-client-app:${APPLICATION_IMAGE_TAG}
+              name: example-app:${APPLICATION_IMAGE_TAG}
 parameters:
   - name: APPLICATION_IMAGE_TAG
     value: latest
